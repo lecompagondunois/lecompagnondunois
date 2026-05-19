@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Compagnon Dunois — Accompagner. Former. Reconnaître.</title>
+<meta name="description" content="Le Compagnon Dunois : plateforme nationale d'accompagnement à domicile et de formation professionnelle. Pilote France, puis international.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+:root{--navy:#1E3A5F;--navy-dark:#0D1F3C;--cream:#F5F0E8;--gold:#C9A96E;--gold-light:#E8C98A;--forest:#2D5A3D;--gray-warm:#E8E4DC;--dark:#1A1A2E;--text:#2C2C2C;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:1.2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,box-shadow .4s;}
+nav.scrolled{background:rgba(13,31,60,.96);backdrop-filter:blur(12px);box-shadow:0 2px 24px rgba(0,0,0,.2);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:#fff;letter-spacing:.05em;text-decoration:none;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{color:rgba(255,255,255,.8);font-size:.88rem;text-decoration:none;font-weight:400;letter-spacing:.02em;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{background:var(--gold);color:var(--navy-dark);border:none;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-weight:600;font-size:.84rem;letter-spacing:.06em;padding:.65rem 1.5rem;text-transform:uppercase;text-decoration:none;transition:background .2s;}
+.nav-cta:hover{background:var(--gold-light);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.hamburger span{width:24px;height:2px;background:#fff;transition:all .3s;display:block;}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(150deg,var(--navy-dark) 0%,#1a3550 50%,#0f2640 100%);z-index:0;}
+.hero-canvas{position:absolute;inset:0;z-index:1;opacity:.45;}
+.hero-content{position:relative;z-index:2;max-width:880px;}
+.hero-eyebrow{display:inline-block;font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:500;border:1px solid rgba(201,169,110,.35);padding:.4rem 1.3rem;border-radius:1px;margin-bottom:2.2rem;opacity:0;transform:translateY(20px);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,7.5vw,6rem);font-weight:600;line-height:1.05;color:#fff;margin-bottom:1.6rem;opacity:0;transform:translateY(30px);}
+.hero-title em{color:var(--gold);font-style:normal;}
+.hero-subtitle{font-size:clamp(1rem,2vw,1.2rem);color:rgba(255,255,255,.72);font-weight:300;line-height:1.75;max-width:580px;margin:0 auto 1.5rem;opacity:0;transform:translateY(20px);}
+.hero-phases{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:3rem;opacity:0;}
+.phase{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5);padding:0 1.2rem;font-weight:400;}
+.phase.active{color:var(--gold);font-weight:600;}
+.phase-sep{width:40px;height:1px;background:rgba(255,255,255,.15);}
+.hero-btns{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);}
+.btn-primary{background:var(--gold);color:var(--navy-dark);border:none;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.07em;padding:1.05rem 2.3rem;text-transform:uppercase;text-decoration:none;display:inline-block;transition:background .25s,transform .2s;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-secondary{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.45);border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-weight:500;font-size:.88rem;letter-spacing:.07em;padding:1.05rem 2.3rem;text-transform:uppercase;text-decoration:none;display:inline-block;transition:border-color .25s,color .25s,transform .2s;}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,rgba(201,169,110,.6),transparent);animation:sa 2s ease-in-out infinite;}
+@keyframes sa{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-scroll span{font-size:.68rem;color:rgba(255,255,255,.35);letter-spacing:.18em;text-transform:uppercase;}
+
+/* GENERIC */
+.wave{display:block;width:100%;overflow:hidden;line-height:0;}
+.wave svg{display:block;}
+section{padding:6rem 2.5rem;}
+.si{max-width:1100px;margin:0 auto;}
+.eyebrow{font-size:.74rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1rem;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:600;color:var(--navy);line-height:1.18;margin-bottom:1.5rem;}
+.sec-title.w{color:#fff;}
+.sec-body{font-size:1.05rem;line-height:1.85;color:var(--text);max-width:640px;font-weight:300;}
+.sec-body.w{color:rgba(255,255,255,.75);}
+.gold-bar{width:56px;height:2px;background:var(--gold);margin-bottom:1.5rem;}
+.reveal{opacity:0;transform:translateY(32px);}
+
+/* QUI */
+#qui{background:var(--cream);}
+.qui-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.qui-visual{background:linear-gradient(140deg,var(--navy),var(--navy-dark));border-radius:2px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+.qui-visual-inner{text-align:center;padding:2.5rem;}
+.qui-visual-inner svg{opacity:.25;margin-bottom:1rem;}
+.qui-visual-inner p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:rgba(255,255,255,.5);font-style:italic;}
+.roadmap{margin-top:2.5rem;display:flex;flex-direction:column;gap:0;}
+.rm-item{display:flex;align-items:flex-start;gap:1.2rem;padding:1rem 0;border-bottom:1px solid rgba(30,58,95,.08);}
+.rm-item:last-child{border-bottom:none;}
+.rm-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;font-weight:700;letter-spacing:.05em;}
+.rm-dot.active{background:var(--gold);color:var(--navy-dark);}
+.rm-dot.next{background:rgba(30,58,95,.1);color:var(--navy);}
+.rm-dot.future{background:rgba(30,58,95,.05);color:rgba(30,58,95,.4);}
+.rm-text strong{display:block;font-size:.9rem;font-weight:600;color:var(--navy);margin-bottom:.2rem;}
+.rm-text span{font-size:.85rem;color:#888;font-weight:300;}
+
+/* PILIERS */
+#piliers{background:var(--navy);}
+.piliers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem;}
+.pc{background:rgba(255,255,255,.05);border:1px solid rgba(201,169,110,.18);border-radius:2px;padding:2.5rem 2rem;transition:background .3s,border-color .3s,transform .3s;}
+.pc:hover{background:rgba(201,169,110,.07);border-color:rgba(201,169,110,.45);transform:translateY(-4px);}
+.pc-icon{width:50px;height:50px;background:rgba(201,169,110,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;}
+.pc-icon svg{stroke:var(--gold);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.pc-num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:rgba(201,169,110,.12);line-height:1;margin-bottom:.4rem;}
+.pc-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:#fff;margin-bottom:.9rem;}
+.pc-body{font-size:.93rem;line-height:1.7;color:rgba(255,255,255,.62);font-weight:300;}
+.pc-tag{display:inline-block;margin-top:1.4rem;font-size:.72rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid rgba(201,169,110,.35);padding-bottom:2px;}
+
+/* CHIFFRES */
+#chiffres{background:var(--navy-dark);padding:5rem 2.5rem;}
+.chiffres-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3rem;max-width:1100px;margin:0 auto;text-align:center;}
+.cv{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:700;color:var(--gold);line-height:1;}
+.cu{font-size:1.6rem;vertical-align:super;}
+.cl{font-size:.84rem;color:rgba(255,255,255,.45);margin-top:.8rem;font-weight:300;letter-spacing:.04em;}
+
+/* POUR QUI */
+#pour-qui{background:var(--gray-warm);}
+.pq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;}
+.pq-card{background:#fff;border-radius:2px;padding:2.5rem 2rem;border-top:3px solid transparent;transition:box-shadow .3s;}
+.pq-card:hover{box-shadow:0 10px 50px rgba(30,58,95,.1);}
+.pq-card.pub{border-top-color:var(--forest);}
+.pq-card.pro{border-top-color:var(--navy);}
+.pq-card.inv{border-top-color:var(--gold);}
+.pq-label{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:1.2rem;}
+.pq-card.pub .pq-label{color:var(--forest);}
+.pq-card.pro .pq-label{color:var(--navy);}
+.pq-card.inv .pq-label{color:var(--gold);}
+.pq-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:600;color:var(--navy);margin-bottom:.9rem;}
+.pq-body{font-size:.93rem;line-height:1.7;color:#666;font-weight:300;}
+.pq-list{list-style:none;margin-top:1.2rem;}
+.pq-list li{font-size:.88rem;color:#777;padding:.3rem 0;padding-left:1.1rem;position:relative;}
+.pq-list li::before{content:'—';position:absolute;left:0;color:var(--gold);font-size:.78rem;}
+.pq-cta{display:inline-block;margin-top:2rem;font-size:.8rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;padding:.75rem 1.5rem;border-radius:2px;cursor:pointer;transition:all .25s;}
+.pq-card.pub .pq-cta{background:var(--forest);color:#fff;}
+.pq-card.pro .pq-cta{background:var(--navy);color:#fff;}
+.pq-card.inv .pq-cta{background:var(--gold);color:var(--navy-dark);}
+.pq-cta:hover{opacity:.85;transform:translateY(-2px);}
+
+/* CONTACT */
+#contact{background:var(--cream);}
+.cg{display:grid;grid-template-columns:1fr 1.5fr;gap:6rem;align-items:start;}
+.fw{background:#fff;border-radius:2px;padding:3rem;box-shadow:0 4px 40px rgba(30,58,95,.08);}
+.fg{margin-bottom:1.5rem;}
+.fg label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin-bottom:.5rem;}
+.fg input,.fg select,.fg textarea{width:100%;padding:.9rem 1.1rem;border:1.5px solid #ddd;border-radius:1px;font-family:'Jost',sans-serif;font-size:.95rem;color:var(--dark);background:var(--cream);outline:none;transition:border-color .2s;appearance:none;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--navy);}
+.fg textarea{resize:vertical;min-height:110px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.btn-form{width:100%;padding:1.1rem;background:var(--navy);color:#fff;border:none;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.09em;text-transform:uppercase;transition:background .25s;}
+.btn-form:hover{background:var(--navy-dark);}
+.rgpd{font-size:.74rem;color:#aaa;margin-top:1rem;line-height:1.5;}
+.form-ok{display:none;text-align:center;padding:2rem;}
+.form-ok p{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--forest);}
+.form-ok small{font-size:.9rem;color:#888;display:block;margin-top:.5rem;}
+.info-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem;}
+.info-icon{width:38px;height:38px;background:rgba(30,58,95,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.info-icon svg{stroke:var(--navy);fill:none;stroke-width:2;stroke-linecap:round;}
+.info-label{font-weight:600;font-size:.9rem;color:var(--navy);}
+.info-sub{font-size:.83rem;color:#999;font-weight:300;}
+
+/* FOOTER */
+footer{background:var(--navy-dark);color:rgba(255,255,255,.5);padding:3rem 2.5rem 2rem;}
+.fi{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;}
+.fl{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:#fff;letter-spacing:.05em;}
+.fl span{color:var(--gold);}
+.flinks{display:flex;gap:2rem;flex-wrap:wrap;}
+.flinks a{font-size:.78rem;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s;cursor:pointer;}
+.flinks a:hover{color:var(--gold);}
+.fcopy{font-size:.73rem;color:rgba(255,255,255,.25);}
+
+/* MODAL */
+.mo{display:none;position:fixed;inset:0;background:rgba(13,31,60,.92);z-index:200;align-items:center;justify-content:center;padding:2rem;}
+.mo.active{display:flex;}
+.mb{background:var(--cream);border-radius:2px;padding:3rem;max-width:420px;width:100%;position:relative;}
+.mc{position:absolute;top:1rem;right:1.2rem;background:none;border:none;cursor:pointer;font-size:1.4rem;color:#aaa;line-height:1;}
+.mt{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:600;color:var(--navy);margin-bottom:.4rem;}
+.ms{font-size:.88rem;color:#999;margin-bottom:2rem;}
+.me{display:none;color:#c0392b;font-size:.83rem;margin-top:.7rem;}
+.mi{width:100%;padding:.95rem 1.1rem;border:1.5px solid #ddd;border-radius:1px;font-family:'Jost',sans-serif;font-size:1rem;outline:none;transition:border-color .2s;margin-bottom:1rem;background:var(--cream);}
+.mi:focus{border-color:var(--navy);}
+.bm{width:100%;padding:1rem;background:var(--navy);color:#fff;border:none;border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.07em;text-transform:uppercase;}
+
+/* ESPACES PRIVÉS */
+.ep{display:none;position:fixed;inset:0;background:var(--cream);z-index:150;overflow-y:auto;}
+.ep-hdr{background:var(--navy-dark);padding:1.4rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.ep-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#fff;font-weight:600;}
+.ep-badge{font-size:.7rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;padding:.35rem 1rem;border-radius:2px;}
+.ep-badge.i{background:var(--gold);color:var(--navy-dark);}
+.ep-badge.c{background:var(--forest);color:#fff;}
+.btn-lo{background:transparent;border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.65);border-radius:2px;cursor:pointer;font-family:'Jost',sans-serif;font-size:.78rem;padding:.42rem 1rem;transition:all .2s;}
+.btn-lo:hover{border-color:var(--gold);color:var(--gold);}
+.ep-body{max-width:1060px;margin:0 auto;padding:4rem 2.5rem;}
+.ep-title{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:600;color:var(--navy);margin-bottom:.4rem;}
+.ep-sub{font-size:1rem;color:#999;margin-bottom:3.5rem;font-weight:300;}
+
+/* TABS */
+.tabs{display:flex;gap:0;border-bottom:2px solid #e0dbd0;margin-bottom:3rem;overflow-x:auto;}
+.tab{padding:.85rem 1.8rem;font-size:.85rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;color:#aaa;border-bottom:2.5px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:color .2s,border-color .2s;background:none;border-top:none;border-left:none;border-right:none;font-family:'Jost',sans-serif;}
+.tab.active{color:var(--navy);border-bottom-color:var(--gold);}
+.tab:hover:not(.active){color:var(--navy);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* DOC PAGE */
+.doc-page{background:#fff;border-radius:2px;border:1px solid #e8e4dc;overflow:hidden;}
+.doc-page-header{background:linear-gradient(135deg,var(--navy),var(--navy-dark));padding:3rem;color:#fff;}
+.doc-page-header h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;margin-bottom:.6rem;}
+.doc-page-header p{font-size:.95rem;color:rgba(255,255,255,.7);font-weight:300;line-height:1.6;}
+.doc-page-header.green{background:linear-gradient(135deg,var(--forest),#1a3d27);}
+.doc-page-body{padding:3rem;}
+.dp-section{margin-bottom:2.5rem;}
+.dp-section h4{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--navy);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid #f0ece4;}
+.dp-section p{font-size:.95rem;line-height:1.8;color:#555;font-weight:300;margin-bottom:.8rem;}
+.dp-kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1.2rem;margin:1.5rem 0;}
+.dp-kpi{background:var(--cream);border-radius:2px;padding:1.2rem;text-align:center;}
+.dp-kpi-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--navy);}
+.dp-kpi-label{font-size:.78rem;color:#999;margin-top:.3rem;font-weight:300;}
+.dp-list{list-style:none;margin:.8rem 0;}
+.dp-list li{padding:.4rem 0;padding-left:1.2rem;position:relative;font-size:.93rem;color:#555;font-weight:300;line-height:1.6;}
+.dp-list li::before{content:'—';position:absolute;left:0;color:var(--gold);}
+.dp-dl-bar{background:var(--gray-warm);padding:1.5rem;border-radius:2px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:2rem;}
+.dp-dl-bar p{font-size:.88rem;color:#777;font-weight:300;}
+.dp-dl-bar strong{color:var(--navy);display:block;margin-bottom:.2rem;}
+.btn-dl{background:var(--navy);color:#fff;border:none;border-radius:2px;padding:.75rem 1.6rem;font-family:'Jost',sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:background .2s;}
+.btn-dl:hover{background:var(--navy-dark);}
+.btn-dl.gold{background:var(--gold);color:var(--navy-dark);}
+.btn-dl.gold:hover{background:var(--gold-light);}
+
+/* CONTACT ESPACE */
+.ep-contact{margin-top:4rem;border-radius:2px;padding:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:2rem;}
+.ep-contact.inv{background:var(--navy);}
+.ep-contact.col{background:var(--forest);}
+.ep-contact p{color:rgba(255,255,255,.85);font-size:.95rem;max-width:520px;line-height:1.7;}
+.ep-contact strong{color:#fff;}
+.btn-cg{background:var(--gold);color:var(--navy-dark);border:none;border-radius:2px;font-family:'Jost',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.08em;padding:.95rem 2.2rem;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s;}
+.btn-cg:hover{background:var(--gold-light);}
+.btn-cg.green{background:#fff;color:var(--forest);}
+
+/* MOBILE */
+.mobile-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(13,31,60,.97);padding:.8rem 1rem;gap:.8rem;z-index:99;border-top:1px solid rgba(201,169,110,.2);}
+.mobile-bar .btn-primary,.mobile-bar .btn-secondary{flex:1;text-align:center;font-size:.78rem;padding:.8rem 1rem;}
+
+@media(max-width:1024px){.chiffres-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){
+  .nav-links{display:none;}.hamburger{display:flex;}
+  .qui-grid,.pq-grid,.piliers-grid,.cg{grid-template-columns:1fr;gap:2.5rem;}
+  .chiffres-grid{grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+  .frow{grid-template-columns:1fr;}
+  .fi{flex-direction:column;align-items:flex-start;}
+  .mobile-bar{display:flex;}
+  body{padding-bottom:72px;}
+  section{padding:4rem 1.2rem;}
+  .ep-body{padding:2rem 1rem;}
+  .doc-page-body{padding:2rem 1.2rem;}
+  .dp-kpis{grid-template-columns:1fr 1fr;}
+  .ep-contact{flex-direction:column;}
+  .hero-phases{flex-wrap:wrap;gap:.5rem;}
+  .phase-sep{display:none;}
+}
+@media(max-width:480px){.hero-btns{flex-direction:column;align-items:stretch;}.cv{font-size:2.6rem;}.ep-title{font-size:2rem;}}
+</style>
+</head>
+<body>
+
+<nav id="mn">
+  <a href="#" class="nav-logo">Le Compagnon <span>Dunois</span></a>
+  <ul class="nav-links">
+    <li><a href="#qui">Le projet</a></li>
+    <li><a href="#piliers">Notre approche</a></li>
+    <li><a href="#pour-qui">Pour qui</a></li>
+    <li><a href="#ecole">L'École</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Demander l'accès</a>
+  <div class="hamburger" id="hbg"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <canvas class="hero-canvas" id="hc"></canvas>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Plateforme nationale · Ambition internationale</div>
+    <h1 class="hero-title">Accompagner.<br><em>Former.</em><br>Reconnaître.</h1>
+    <p class="hero-subtitle">La première plateforme dédiée aux professionnels et aux proches de l'accompagnement à domicile — née en France, faite pour le monde.</p>
+    <div class="hero-phases">
+      <div class="phase active">Phase 1 — 3 territoires pilotes</div>
+      <div class="phase-sep"></div>
+      <div class="phase next">Phase 2 — National</div>
+      <div class="phase-sep"></div>
+      <div class="phase future">Phase 3 — International</div>
+    </div>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary" onclick="oM('invest');return false;">Espace Investisseurs</a>
+      <a href="#" class="btn-secondary" onclick="oM('collab');return false;">Espace Collaborateurs</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Découvrir</span></div>
+</section>
+
+<!-- QUI -->
+<section id="qui">
+  <div class="si qui-grid">
+    <div class="reveal">
+      <p class="eyebrow">Le projet</p>
+      <div class="gold-bar"></div>
+      <h2 class="sec-title">Un marché immense,<br>une plateforme manquante</h2>
+      <p class="sec-body">12 millions d'aidants. Des centaines de milliers de professionnels du domicile. Un secteur en croissance structurelle de 40 % d'ici 2035 — et pourtant aucune plateforme nationale de référence pour les former, les reconnaître et les connecter.</p>
+      <p class="sec-body" style="margin-top:1rem">Le Compagnon Dunois comble ce vide. Une initiative portée par des professionnels du terrain, structurée pour un déploiement progressif : trois territoires pilotes, puis la France entière, puis l'Europe et le monde francophone.</p>
+      <div class="roadmap">
+        <div class="rm-item">
+          <div class="rm-dot active">P1</div>
+          <div class="rm-text"><strong>Phase 1 — Territoires pilotes (2026)</strong><span>3 secteurs test · Validation du modèle · Premiers modules certifiés</span></div>
+        </div>
+        <div class="rm-item">
+          <div class="rm-dot next">P2</div>
+          <div class="rm-text"><strong>Phase 2 — Déploiement national (2027)</strong><span>Ouverture France entière · Partenariats institutionnels · RNCP/RS</span></div>
+        </div>
+        <div class="rm-item">
+          <div class="rm-dot future">P3</div>
+          <div class="rm-text"><strong>Phase 3 — International (2028–2030)</strong><span>Europe francophone · Afrique · Adaptation locale</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="qui-visual reveal">
+      <div class="qui-visual-inner">
+        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="0.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <p>Accompagner ceux<br>qui accompagnent</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:60px"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#1E3A5F"/></svg></div>
+
+<!-- PILIERS -->
+<section id="piliers">
+  <div class="si">
+    <div class="reveal">
+      <p class="eyebrow">Notre approche</p>
+      <h2 class="sec-title w">Trois piliers, un écosystème</h2>
+      <p class="sec-body w" style="max-width:560px">Accompagnement, formation et reconnaissance : trois dimensions indissociables pour transformer durablement le secteur du domicile.</p>
+    </div>
+    <div class="piliers-grid">
+      <div class="pc reveal">
+        <div class="pc-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="pc-num">01</div>
+        <h3 class="pc-title">Accompagnement public</h3>
+        <p class="pc-body">Application gratuite pour les aidants, les familles et les personnes accompagnées. Parcours personnalisé, ressources pratiques, orientation et suivi au quotidien.</p>
+        <span class="pc-tag">Gratuit · Accessible à tous</span>
+      </div>
+      <div class="pc reveal">
+        <div class="pc-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <div class="pc-num">02</div>
+        <h3 class="pc-title">Formation professionnelle</h3>
+        <p class="pc-body">Micro-modules certifiés de 5 à 20 minutes, diplômes privés évolutifs vers RNCP/RS, co-auteurs professionnels rémunérés. Une offre low-cost, labellisée, accessible.</p>
+        <span class="pc-tag">2 à 5 € le module · Certifié</span>
+      </div>
+      <div class="pc reveal">
+        <div class="pc-icon"><svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+        <div class="pc-num">03</div>
+        <h3 class="pc-title">Reconnaissance</h3>
+        <p class="pc-body">Badges numériques, labels de compétences, macaron véhicule, tablier nominatif, cartes de visite, boutique. La compétence mérite d'être visible et tangible.</p>
+        <span class="pc-tag">Badges · Labels · Boutique</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wave" style="transform:rotate(180deg);margin-bottom:-1px"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:60px"><path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#1E3A5F"/></svg></div>
+
+<!-- CHIFFRES -->
+<section id="chiffres">
+  <div class="chiffres-grid">
+    <div class="reveal"><div class="cv" id="n1">12<span class="cu">Md€</span></div><div class="cl">Marché aide à domicile France</div></div>
+    <div class="reveal"><div class="cv" id="n2">11<span class="cu">M</span></div><div class="cl">Aidants familiaux en France</div></div>
+    <div class="reveal"><div class="cv" id="n3">+40<span class="cu">%</span></div><div class="cl">Croissance du secteur d'ici 2035</div></div>
+    <div class="reveal"><div class="cv" style="font-size:2.8rem">Aucune</div><div class="cl">Plateforme nationale de référence existante</div></div>
+  </div>
+</section>
+
+<!-- POUR QUI -->
+<section id="pour-qui">
+  <div class="si">
+    <div class="reveal"><p class="eyebrow">Nos cibles</p><h2 class="sec-title">Pour qui ?</h2></div>
+    <div class="pq-grid">
+      <div class="pq-card pub reveal">
+        <div class="pq-label">Le public</div>
+        <h3 class="pq-title">Aidants & Familles</h3>
+        <p class="pq-body">Vous accompagnez un proche. Vous avez besoin d'outils clairs, de ressources fiables, d'un parcours adapté à votre réalité quotidienne.</p>
+        <ul class="pq-list"><li>Application gratuite</li><li>Parcours personnalisé</li><li>Ressources et orientation</li><li>Suivi et accompagnement</li></ul>
+        <a href="#contact" class="pq-cta">Découvrir l'application</a>
+      </div>
+      <div class="pq-card pro reveal">
+        <div class="pq-label">Les professionnels</div>
+        <h3 class="pq-title">Soignants & Formateurs</h3>
+        <p class="pq-body">Vous travaillez dans le domicile, la formation ou la santé. Vous voulez vous former, valider vos compétences ou devenir co-auteur rémunéré.</p>
+        <ul class="pq-list"><li>Micro-modules certifiés (2–5 €)</li><li>Diplômes et labels reconnus</li><li>Co-auteur rémunéré au %</li><li>Chat professionnel intégré</li></ul>
+        <a href="#" class="pq-cta" onclick="oM('collab');return false;">Rejoindre la plateforme</a>
+      </div>
+      <div class="pq-card inv reveal">
+        <div class="pq-label">Les investisseurs</div>
+        <h3 class="pq-title">Partenaires financiers</h3>
+        <p class="pq-body">Marché structurel de 12 Md€, MVP actionnable, modèle économique multi-flux, déploiement progressif validé terrain.</p>
+        <ul class="pq-list"><li>Dossier investisseurs complet</li><li>Plan financier 2026–2036</li><li>Modèle micro-paiements + B2B</li><li>Ambition nationale & internationale</li></ul>
+        <a href="#" class="pq-cta" onclick="oM('invest');return false;">Accéder au dossier</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÉCOLE DU DUNOIS -->
+<section id="ecole" style="background:var(--navy-dark);padding:6rem 0;position:relative;overflow:hidden;">
+
+  <!-- Blasons décoratifs en fond -->
+  <div style="position:absolute;top:-60px;right:-80px;width:420px;opacity:.07;pointer-events:none;transform:rotate(12deg)">
+    <img src="assets/ecole/blason_bleu.png" style="width:100%">
+  </div>
+  <div style="position:absolute;bottom:-80px;left:-60px;width:340px;opacity:.06;pointer-events:none;transform:rotate(-8deg)">
+    <img src="assets/ecole/blason_bordeaux.png" style="width:100%">
+  </div>
+
+  <div class="si" style="max-width:1100px;margin:0 auto;padding:0 2.5rem;position:relative;z-index:2;">
+
+    <!-- EN-TÊTE ÉCOLE -->
+    <div class="reveal" style="text-align:center;margin-bottom:4rem;">
+      <img src="assets/ecole/logo_blason.png" alt="Blason L'École du Dunois" style="width:110px;margin-bottom:1.8rem;filter:drop-shadow(0 4px 24px rgba(201,169,110,.35))">
+      <p class="eyebrow" style="color:var(--gold);letter-spacing:.2em;">Nouvelle EdTech</p>
+      <div class="gold-bar" style="background:var(--gold);width:48px;height:2px;margin:.8rem auto 1.5rem;"></div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:600;color:#fff;line-height:1.15;margin-bottom:1.5rem;">L'École du Dunois</h2>
+      <p style="color:rgba(255,255,255,.7);font-size:1.05rem;max-width:640px;margin:0 auto;line-height:1.8;">Une école hors du commun. Ancrée dans le territoire du Dunois, propulsée par l'intelligence artificielle, conçue comme une expérience immersive — là où apprendre ressemble à vivre une aventure.</p>
+    </div>
+
+    <!-- ÉDITO -->
+    <div class="reveal" style="background:rgba(255,255,255,.04);border:1px solid rgba(201,169,110,.2);border-radius:2px;padding:3rem;margin-bottom:4rem;display:flex;gap:2.5rem;align-items:flex-start;flex-wrap:wrap;">
+      <div style="flex:0 0 auto;">
+        <img src="assets/ecole/blason_vert.png" alt="Blason École du Dunois" style="width:90px;opacity:.9;filter:drop-shadow(0 2px 12px rgba(201,169,110,.2))">
+      </div>
+      <div style="flex:1;min-width:260px;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--gold);font-style:italic;margin-bottom:1rem;">« Transmettre n'est pas enseigner. C'est allumer une flamme. »</p>
+        <p style="color:rgba(255,255,255,.75);line-height:1.8;font-size:.97rem;">L'École du Dunois est née d'une conviction : les savoirs du terrain méritent une transmission à la hauteur de leur richesse. Pas de cours magistraux. Pas de diaporamas ternes. Ici, chaque module est une expérience — immersive, incarnée, portée par des professeurs qui ont vécu ce qu'ils enseignent.</p>
+        <p style="color:rgba(255,255,255,.75);line-height:1.8;font-size:.97rem;margin-top:.8rem;">Propulsée par une intelligence artificielle de nouvelle génération, l'école adapte chaque parcours à l'élève, en temps réel. Chaque professeur y prend vie avec sa propre voix, son caractère, son histoire.</p>
+      </div>
+    </div>
+
+    <!-- FORMAT PÉDAGOGIQUE -->
+    <div class="reveal" style="margin-bottom:4rem;">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;margin-bottom:2rem;text-align:center;">Un format inédit — Jeu vidéo immersif & IA</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;">
+        <div style="background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.15);border-radius:2px;padding:2rem;">
+          <div style="font-size:1.8rem;margin-bottom:.8rem;">🎮</div>
+          <h4 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.2rem;margin-bottom:.6rem;">Expérience immersive</h4>
+          <p style="color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.7;">Des modules conçus comme des univers à explorer — scènes interactives, choix narratifs, mises en situation réelles du domicile.</p>
+        </div>
+        <div style="background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.15);border-radius:2px;padding:2rem;">
+          <div style="font-size:1.8rem;margin-bottom:.8rem;">🤖</div>
+          <h4 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.2rem;margin-bottom:.6rem;">IA maîtrisée</h4>
+          <p style="color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.7;">Chaque professeur IA possède un caractère propre, adapte son discours à l'élève et s'appuie sur des sources certifiées et actualisées.</p>
+        </div>
+        <div style="background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.15);border-radius:2px;padding:2rem;">
+          <div style="font-size:1.8rem;margin-bottom:.8rem;">📱</div>
+          <h4 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.2rem;margin-bottom:.6rem;">Tous supports</h4>
+          <p style="color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.7;">PC · Mac · Android · iOS · Tablettes. L'école s'adapte à l'élève, pas l'inverse.</p>
+        </div>
+        <div style="background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.15);border-radius:2px;padding:2rem;">
+          <div style="font-size:1.8rem;margin-bottom:.8rem;">⏱️</div>
+          <h4 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.2rem;margin-bottom:.6rem;">Modules courts</h4>
+          <p style="color:rgba(255,255,255,.65);font-size:.9rem;line-height:1.7;">5 à 20 minutes par module. Conçus pour s'intégrer dans une journée de terrain — entre deux visites, le soir, dans les transports.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- L'IA DÉDIÉE -->
+    <div class="reveal" style="background:linear-gradient(135deg,rgba(30,58,95,.6),rgba(13,31,60,.8));border:1px solid rgba(201,169,110,.25);border-radius:2px;padding:3rem;margin-bottom:4rem;">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;margin-bottom:.5rem;">Une IA dédiée — au service de l'humain</h3>
+      <div style="width:40px;height:2px;background:var(--gold);margin-bottom:1.8rem;"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;flex-wrap:wrap;">
+        <div>
+          <h4 style="color:var(--gold);font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem;">Personnalisation totale</h4>
+          <p style="color:rgba(255,255,255,.7);line-height:1.8;font-size:.95rem;">L'IA analyse le rythme, les réponses et les lacunes de chaque élève pour adapter le contenu en temps réel. Chaque parcours est unique.</p>
+        </div>
+        <div>
+          <h4 style="color:var(--gold);font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem;">Professeurs incarnés</h4>
+          <p style="color:rgba(255,255,255,.7);line-height:1.8;font-size:.95rem;">Chaque professeur IA a un caractère, une histoire, une façon de parler. Pas un assistant générique — une présence, une relation pédagogique authentique.</p>
+        </div>
+        <div>
+          <h4 style="color:var(--gold);font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem;">Sources certifiées</h4>
+          <p style="color:rgba(255,255,255,.7);line-height:1.8;font-size:.95rem;">L'IA ne s'appuie que sur des bases de données officielles et certifiées — HAS, Ministère de la Santé, organismes de formation reconnus. Aucune approximation.</p>
+        </div>
+        <div>
+          <h4 style="color:var(--gold);font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem;">Toujours actualisée</h4>
+          <p style="color:rgba(255,255,255,.7);line-height:1.8;font-size:.95rem;">Les contenus sont mis à jour automatiquement dès que les référentiels évoluent. L'élève apprend toujours avec les données les plus récentes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- L'ÉQUIPE PROFESSORALE -->
+    <div class="reveal" style="margin-bottom:4rem;">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;margin-bottom:.4rem;text-align:center;">L'équipe professorale</h3>
+      <p style="color:rgba(255,255,255,.5);text-align:center;font-size:.9rem;margin-bottom:2.5rem;">Des personnages uniques. Une expertise réelle. Une histoire qui leur appartient.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;">
+
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:2rem;border-top:3px solid var(--gold);">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#8B6914,#C9A96E);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#fff;margin-bottom:1rem;">M</div>
+          <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:#fff;margin-bottom:.2rem;">Marthe</h4>
+          <p style="color:var(--gold);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;">Soins & Gestes professionnels</p>
+          <p style="color:rgba(255,255,255,.6);font-size:.88rem;line-height:1.7;">Ancienne aide-soignante de nuit pendant 22 ans dans un EHPAD de province. Directe, chaleureuse, intolérante à l'à-peu-près. Elle sait ce que c'est d'être seule à 3h du matin face à une situation complexe.</p>
+        </div>
+
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:2rem;border-top:3px solid var(--forest);">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#1a4028,#2D5A3D);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#fff;margin-bottom:1rem;">R</div>
+          <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:#fff;margin-bottom:.2rem;">Roland</h4>
+          <p style="color:#7fbf9e;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;">Droit & Accompagnement légal</p>
+          <p style="color:rgba(255,255,255,.6);font-size:.88rem;line-height:1.7;">Ex-assistant social reconverti en formateur après avoir accompagné des centaines de familles dans des situations de rupture. Méthodique, patient, jamais condescendant.</p>
+        </div>
+
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:2rem;border-top:3px solid #8B6914;">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#3d1a2e,#6b2d4a);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#fff;margin-bottom:1rem;">L</div>
+          <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:#fff;margin-bottom:.2rem;">Lucie</h4>
+          <p style="color:#d4a0b5;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;">Psychologie & Relation d'aide</p>
+          <p style="color:rgba(255,255,255,.6);font-size:.88rem;line-height:1.7;">Psychologue clinicienne, spécialiste de l'épuisement des aidants. Elle parle vrai, sans jargon. Elle a elle-même accompagné un proche en fin de vie avant de choisir ce chemin.</p>
+        </div>
+
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:2rem;border-top:3px solid #4a6fa5;">
+          <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#1a2a4a,#2d4a7a);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#fff;margin-bottom:1rem;">A</div>
+          <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:#fff;margin-bottom:.2rem;">Armand</h4>
+          <p style="color:#8aabcc;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;">Nutrition & Alimentation à domicile</p>
+          <p style="color:rgba(255,255,255,.6);font-size:.88rem;line-height:1.7;">Cuisinier étoilé reconverti en diététicien après la maladie de sa mère. Passionné, un peu perfectionniste, il transforme chaque cours en moment de plaisir autant que de rigueur.</p>
+        </div>
+
+      </div>
+      <p style="text-align:center;color:rgba(255,255,255,.35);font-size:.85rem;margin-top:1.5rem;font-style:italic;">D'autres professeurs rejoindront l'école progressivement — chacun avec sa spécialité, son histoire, sa façon unique d'enseigner.</p>
+    </div>
+
+    <!-- PARCOURS ÉLÈVE -->
+    <div class="reveal" style="margin-bottom:4rem;">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;margin-bottom:2rem;text-align:center;">L'expérience élève</h3>
+      <div style="display:flex;flex-direction:column;gap:1rem;max-width:700px;margin:0 auto;">
+        <div style="display:flex;gap:1.5rem;align-items:flex-start;">
+          <div style="flex:0 0 36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;">1</div>
+          <div><strong style="color:#fff;display:block;margin-bottom:.2rem;">Je choisis mon professeur et ma thématique</strong><span style="color:rgba(255,255,255,.6);font-size:.9rem;">Chaque professeur aborde les sujets à sa façon. Je choisis l'approche qui me correspond.</span></div>
+        </div>
+        <div style="display:flex;gap:1.5rem;align-items:flex-start;">
+          <div style="flex:0 0 36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;">2</div>
+          <div><strong style="color:#fff;display:block;margin-bottom:.2rem;">Je vis le module comme une aventure</strong><span style="color:rgba(255,255,255,.6);font-size:.9rem;">Scènes immersives, situations réelles, quiz interactifs — 5 à 20 minutes qui s'envolent.</span></div>
+        </div>
+        <div style="display:flex;gap:1.5rem;align-items:flex-start;">
+          <div style="flex:0 0 36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;">3</div>
+          <div><strong style="color:#fff;display:block;margin-bottom:.2rem;">Je valide et j'obtiens mon attestation</strong><span style="color:rgba(255,255,255,.6);font-size:.9rem;">Chaque module complété génère une attestation numérique et alimente mon badge professionnel.</span></div>
+        </div>
+        <div style="display:flex;gap:1.5rem;align-items:flex-start;">
+          <div style="flex:0 0 36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;">4</div>
+          <div><strong style="color:#fff;display:block;margin-bottom:.2rem;">Je construis ma certification</strong><span style="color:rgba(255,255,255,.6);font-size:.9rem;">5 à 10 modules = une certification thématique. 20 à 40 = un diplôme privé, évolutif vers RNCP.</span></div>
+        </div>
+        <div style="display:flex;gap:1.5rem;align-items:flex-start;">
+          <div style="flex:0 0 36px;height:36px;border-radius:50%;background:var(--gold);color:var(--navy-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;">5</div>
+          <div><strong style="color:#fff;display:block;margin-bottom:.2rem;">Je suis reconnu — et je le montre</strong><span style="color:rgba(255,255,255,.6);font-size:.9rem;">Badges, labels, goodies — ma compétence devient visible sur le terrain et sur mes réseaux.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATIONS & DIPLÔMES -->
+    <div class="reveal" style="background:rgba(201,169,110,.06);border:1px solid rgba(201,169,110,.2);border-radius:2px;padding:2.5rem;margin-bottom:4rem;">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:#fff;margin-bottom:1.5rem;">Certifications & Diplômes</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;">
+        <div style="text-align:center;padding:1.5rem;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--gold);font-weight:600;margin-bottom:.3rem;">2–5 €</div>
+          <div style="color:#fff;font-weight:600;margin-bottom:.4rem;">Module</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.85rem;">Attestation de complétion · Badge numérique</div>
+        </div>
+        <div style="text-align:center;padding:1.5rem;border-left:1px solid rgba(201,169,110,.15);border-right:1px solid rgba(201,169,110,.15);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--gold);font-weight:600;margin-bottom:.3rem;">49–99 €</div>
+          <div style="color:#fff;font-weight:600;margin-bottom:.4rem;">Certification</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.85rem;">5 à 10 modules · Label de compétence · Plaquette physique</div>
+        </div>
+        <div style="text-align:center;padding:1.5rem;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--gold);font-weight:600;margin-bottom:.3rem;">149–299 €</div>
+          <div style="color:#fff;font-weight:600;margin-bottom:.4rem;">Diplôme privé</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.85rem;">20 à 40 modules · Évolutif RNCP/RS · Reconnaissance terrain</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOODIES & RECONNAISSANCE ÉLÈVES -->
+    <div class="reveal" style="margin-bottom:2rem;">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;margin-bottom:.4rem;text-align:center;">La reconnaissance — visible sur le terrain</h3>
+      <p style="color:rgba(255,255,255,.5);text-align:center;font-size:.9rem;margin-bottom:2.5rem;">Parce qu'une compétence mérite d'être vue.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.2rem;">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:2px;padding:1.5rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.7rem;">🏅</div>
+          <div style="color:var(--gold);font-weight:600;font-size:.9rem;margin-bottom:.4rem;">Badge numérique</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.82rem;line-height:1.6;">Open Badge · Partageable LinkedIn & réseaux</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:2px;padding:1.5rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.7rem;">📋</div>
+          <div style="color:var(--gold);font-weight:600;font-size:.9rem;margin-bottom:.4rem;">Label de compétence</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.82rem;line-height:1.6;">Plaquette physique · Mention sur fiche publique</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:2px;padding:1.5rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.7rem;">🚗</div>
+          <div style="color:var(--gold);font-weight:600;font-size:.9rem;margin-bottom:.4rem;">Macaron véhicule</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.82rem;line-height:1.6;">« Certifié Le Compagnon Dunois » · Signal terrain</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:2px;padding:1.5rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.7rem;">👕</div>
+          <div style="color:var(--gold);font-weight:600;font-size:.9rem;margin-bottom:.4rem;">Tablier nominatif</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.82rem;line-height:1.6;">Nom + spécialité + logo · Outil de fierté</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:2px;padding:1.5rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.7rem;">💳</div>
+          <div style="color:var(--gold);font-weight:600;font-size:.9rem;margin-bottom:.4rem;">Cartes de visite</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.82rem;line-height:1.6;">Personnalisées avec les certifications obtenues</div>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:2px;padding:1.5rem;text-align:center;">
+          <div style="font-size:2rem;margin-bottom:.7rem;">🖼️</div>
+          <div style="color:var(--gold);font-weight:600;font-size:.9rem;margin-bottom:.4rem;">Couverture de profil</div>
+          <div style="color:rgba(255,255,255,.5);font-size:.82rem;line-height:1.6;">Format LinkedIn · Personnalisé avec diplômes</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="si cg">
+    <div class="reveal">
+      <p class="eyebrow">Nous contacter</p>
+      <div class="gold-bar"></div>
+      <h2 class="sec-title">Demandez votre accès</h2>
+      <p class="sec-body">Investisseurs, collaborateurs, partenaires — remplissez ce formulaire. Vous recevrez une réponse personnelle sous 48h.</p>
+      <div style="margin-top:2.5rem">
+        <div class="info-item">
+          <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="info-label">bernet.thomas@gmail.com</div><div class="info-sub">Réponse personnelle sous 48h</div></div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div><div class="info-label">Déploiement national — France</div><div class="info-sub">Phase pilote · 3 territoires · 2026</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="fw reveal">
+      <form id="cf">
+        <div class="frow">
+          <div class="fg"><label>Prénom</label><input type="text" name="prenom" required placeholder="Votre prénom"></div>
+          <div class="fg"><label>Nom</label><input type="text" name="nom" required placeholder="Votre nom"></div>
+        </div>
+        <div class="fg"><label>Email</label><input type="email" name="email" required placeholder="votre@email.com"></div>
+        <div class="fg"><label>Vous êtes</label>
+          <select name="role" required>
+            <option value="">— Votre profil —</option>
+            <option>Investisseur</option>
+            <option>Collaborateur / Co-auteur</option>
+            <option>Professionnel de santé / domicile</option>
+            <option>Institution / Établissement</option>
+            <option>Partenaire associatif</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="fg"><label>Message</label><textarea name="message" placeholder="Présentez-vous et précisez l'objet de votre démarche…"></textarea></div>
+        <button type="submit" class="btn-form">Envoyer ma demande</button>
+        <p class="rgpd">Données traitées uniquement pour répondre à votre demande · RGPD · Aucune diffusion à des tiers.</p>
+      </form>
+      <div class="form-ok" id="fok"><p>✓ Demande bien reçue</p><small>Vous recevrez une réponse personnelle sous 48h.</small></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fl">Le Compagnon <span>Dunois</span></div>
+    <div class="flinks">
+      <a onclick="alert('Mentions légales — Le Compagnon Dunois — Responsable : Thomas Bernet — bernet.thomas@gmail.com')">Mentions légales</a>
+      <a onclick="alert('Vos données ne sont pas cédées à des tiers. Contact : bernet.thomas@gmail.com')">Confidentialité</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="fcopy">© 2026 Le Compagnon Dunois</div>
+  </div>
+</footer>
+
+<div class="mobile-bar" id="mob">
+  <a href="#" class="btn-primary" onclick="oM('invest');return false;">Investisseurs</a>
+  <a href="#" class="btn-secondary" onclick="oM('collab');return false;">Collaborateurs</a>
+</div>
+
+<!-- MODAL INVEST -->
+<div class="mo" id="modal-invest">
+  <div class="mb">
+    <button class="mc" onclick="cM('invest')">×</button>
+    <div style="display:inline-block;background:var(--gold);color:var(--navy-dark);font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .9rem;border-radius:1px;margin-bottom:1.2rem">Espace confidentiel</div>
+    <h3 class="mt">Espace Investisseurs</h3>
+    <p class="ms">Accès réservé aux investisseurs et partenaires financiers.</p>
+    <input type="password" class="mi" id="pi" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')chk('invest')">
+    <button class="bm" onclick="chk('invest')">Accéder au dossier</button>
+    <p class="me" id="ei">Mot de passe incorrect. Contactez Thomas Bernet pour obtenir vos accès.</p>
+    <p style="font-size:.76rem;color:#bbb;margin-top:1.2rem;text-align:center">Pas encore d'accès ? <a href="#contact" onclick="cM('invest')" style="color:var(--navy)">Faire une demande</a></p>
+  </div>
+</div>
+
+<!-- MODAL COLLAB -->
+<div class="mo" id="modal-collab">
+  <div class="mb">
+    <button class="mc" onclick="cM('collab')">×</button>
+    <div style="display:inline-block;background:var(--forest);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.3rem .9rem;border-radius:1px;margin-bottom:1.2rem">Espace collaborateurs</div>
+    <h3 class="mt">Espace Collaborateurs</h3>
+    <p class="ms">Accès réservé aux partenaires, co-auteurs et professionnels.</p>
+    <input type="password" class="mi" id="pc" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')chk('collab')">
+    <button class="bm" style="background:var(--forest)" onclick="chk('collab')">Accéder à l'espace</button>
+    <p class="me" id="ec">Mot de passe incorrect. Contactez Thomas Bernet pour obtenir vos accès.</p>
+    <p style="font-size:.76rem;color:#bbb;margin-top:1.2rem;text-align:center">Pas encore partenaire ? <a href="#contact" onclick="cM('collab')" style="color:var(--navy)">Soumettre votre candidature</a></p>
+  </div>
+</div>
+
+<!-- ESPACE INVESTISSEURS -->
+<div class="ep" id="espace-invest">
+  <div class="ep-hdr">
+    <div class="ep-logo">Le Compagnon Dunois</div>
+    <div class="ep-badge i">Espace Investisseurs</div>
+    <button class="btn-lo" onclick="lo('invest')">Déconnexion</button>
+  </div>
+  <div class="ep-body">
+    <h2 class="ep-title">Espace Investisseurs</h2>
+    <p class="ep-sub">Bienvenue. Retrouvez ci-dessous l'ensemble du dossier — chaque onglet est une présentation complète.</p>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('invest','pitch',this)">Projet & Vision</button>
+      <button class="tab" onclick="switchTab('invest','marche',this)">Analyse de marché</button>
+      <button class="tab" onclick="switchTab('invest','financier',this)">Plan financier</button>
+      <button class="tab" onclick="switchTab('invest','strategie',this)">Stratégie</button>
+      <button class="tab" onclick="switchTab('invest','projections',this)">Projections</button>
+    </div>
+
+    <div id="it-pitch" class="tab-content active">
+      <div class="doc-page">
+        <div class="doc-page-header">
+          <h3>Projet & Vision</h3>
+          <p>Le Compagnon Dunois — Présentation investisseurs complète</p>
+        </div>
+        <div class="doc-page-body">
+          <div class="dp-section">
+            <h4>La situation actuelle</h4>
+            <p>12 millions d'aidants en France accompagnent un proche sans formation adaptée, sans reconnaissance officielle, sans outils numériques dédiés. Des centaines de milliers de professionnels du domicile — soignants, auxiliaires de vie, éducateurs — exercent des métiers essentiels sans voie de certification accessible et sans visibilité professionnelle.</p>
+            <p>Le secteur représente 12 milliards d'euros et croît structurellement de 40 % d'ici 2035 sous l'effet du vieillissement démographique — et pourtant aucune plateforme nationale de référence n'existe.</p>
+          </div>
+          <div class="dp-section">
+            <h4>La solution</h4>
+            <p>Le Compagnon Dunois est une plateforme hybride à deux volets complémentaires :</p>
+            <ul class="dp-list">
+              <li><strong>Volet public (gratuit)</strong> — Application d'accompagnement personnalisé pour les aidants et familles : parcours guidé, ressources pratiques, orientation, suivi.</li>
+              <li><strong>Volet professionnel (low-cost)</strong> — Plateforme de micro-formation certifiée pour les professionnels du domicile : modules 5–20 min à 2–5 €, certifications, diplômes privés évoluant vers RNCP/RS, co-auteurs rémunérés.</li>
+              <li><strong>Écosystème de reconnaissance</strong> — Badges numériques, labels, macaron véhicule, tablier nominatif, boutique, chat professionnel intégré.</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Notre avantage compétitif</h4>
+            <ul class="dp-list">
+              <li>Première plateforme dédiée spécifiquement au domicile — pas un MOOC généraliste adapté</li>
+              <li>Modèle co-auteur : les professionnels terrain créent les contenus qu'ils connaissent</li>
+              <li>Triple reconnaissance : numérique + physique + institutionnelle</li>
+              <li>Prix d'entrée ultra-bas (2 €) — aucune barrière économique</li>
+              <li>Déploiement progressif validé sur 3 territoires pilotes avant nationalisation</li>
+            </ul>
+          </div>
+          <div class="dp-kpis">
+            <div class="dp-kpi"><div class="dp-kpi-val">12 Md€</div><div class="dp-kpi-label">Taille du marché</div></div>
+            <div class="dp-kpi"><div class="dp-kpi-val">11 M</div><div class="dp-kpi-label">Aidants familiaux</div></div>
+            <div class="dp-kpi"><div class="dp-kpi-val">+40 %</div><div class="dp-kpi-label">Croissance 2035</div></div>
+            <div class="dp-kpi"><div class="dp-kpi-val">2–5 €</div><div class="dp-kpi-label">Prix module</div></div>
+          </div>
+          <div class="dp-dl-bar">
+            <div><strong>Pack Investisseurs v1</strong><p>Document de synthèse complet — 35 pages</p></div>
+            <a href="assets/Pack_Investisseurs_Compagnon_Dunois_v1.pdf" target="_blank" class="btn-dl">Télécharger PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="it-marche" class="tab-content">
+      <div class="doc-page">
+        <div class="doc-page-header">
+          <h3>Analyse de marché</h3>
+          <p>EdTech santé · Silver economy · SAAD · SSIAD · Benchmark concurrents</p>
+        </div>
+        <div class="doc-page-body">
+          <div class="dp-section">
+            <h4>Taille et dynamique du marché</h4>
+            <p>Le marché de l'aide et du soin à domicile en France atteint 12 milliards d'euros en 2025 et croît structurellement sous trois moteurs indépendants et cumulatifs :</p>
+            <ul class="dp-list">
+              <li><strong>Démographique</strong> — La France comptera 4,8 millions de personnes de plus de 85 ans d'ici 2040 (source INSEE). La demande en accompagnement à domicile croît mécaniquement.</li>
+              <li><strong>Politique</strong> — Le "virage domiciliaire" est une priorité gouvernementale affichée depuis 2022. Les financements ESMS, SAAD et SSIAD sont en forte hausse.</li>
+              <li><strong>Sociétal</strong> — 11 millions d'aidants familiaux en France, dont 40 % vivent des situations d'épuisement. La demande de ressources structurées est massive et non satisfaite.</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>TAM / SAM / SOM</h4>
+            <div class="dp-kpis">
+              <div class="dp-kpi"><div class="dp-kpi-val">12 Md€</div><div class="dp-kpi-label">TAM — Marché total adressable</div></div>
+              <div class="dp-kpi"><div class="dp-kpi-val">1,8 Md€</div><div class="dp-kpi-label">SAM — Marché serviceable</div></div>
+              <div class="dp-kpi"><div class="dp-kpi-val">85 M€</div><div class="dp-kpi-label">SOM — Cible à 5 ans</div></div>
+            </div>
+          </div>
+          <div class="dp-section">
+            <h4>Benchmark concurrents</h4>
+            <p>Aucun concurrent direct en France. Les plateformes e-learning santé existantes (Docteur Ordinateur, Santé Académie, Fifties) ciblent les médecins et infirmiers libéraux — pas les professionnels du domicile. Les MOOC généralistes (Coursera, OpenClassrooms) ne proposent pas de contenus domicile certifiés.</p>
+            <ul class="dp-list">
+              <li>Positionnement inédit : spécialiste domicile + certification + reconnaissance physique</li>
+              <li>Prix ultra-compétitif vs formations traditionnelles (500–2000 € la journée)</li>
+              <li>Modèle co-auteur = barrière à l'entrée forte pour les concurrents</li>
+            </ul>
+          </div>
+          <div class="dp-dl-bar">
+            <div><strong>Analyse de marché complète v2</strong><p>Étude complète — données INSEE, ESMS, SSIAD · 28 pages</p></div>
+            <a href="assets/Analyse_Marche_Compagnon_Dunois_v2.pdf" target="_blank" class="btn-dl">Télécharger PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="it-financier" class="tab-content">
+      <div class="doc-page">
+        <div class="doc-page-header">
+          <h3>Plan financier 2026–2036</h3>
+          <p>Projections sur 10 ans — 3 scénaris d'investissement</p>
+        </div>
+        <div class="doc-page-body">
+          <div class="dp-section">
+            <h4>Modèle économique — Sources de revenus</h4>
+            <ul class="dp-list">
+              <li><strong>Micro-paiements modules</strong> — 2 à 5 € par module · Marge nette estimée 70 %</li>
+              <li><strong>Packs certifications</strong> — 49 à 199 € · Regroupement de modules avec attestation</li>
+              <li><strong>Abonnements B2B</strong> — Établissements (EHPAD, SAAD, SSIAD) · 200 à 800 €/mois</li>
+              <li><strong>Boutique</strong> — Goodies, badges physiques, macaron véhicule, tablier · marge 40 %</li>
+              <li><strong>Partenariats institutionnels</strong> — Formations financées OPCO, CPF, conseils départementaux</li>
+              <li><strong>Co-auteurs</strong> — Revenus partagés : 30 % co-auteur / 70 % plateforme</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Indicateurs clés projetés</h4>
+            <div class="dp-kpis">
+              <div class="dp-kpi"><div class="dp-kpi-val">Y1</div><div class="dp-kpi-label">Pilote · Validation modèle</div></div>
+              <div class="dp-kpi"><div class="dp-kpi-val">Y2–3</div><div class="dp-kpi-label">National · Seuil rentabilité</div></div>
+              <div class="dp-kpi"><div class="dp-kpi-val">Y5</div><div class="dp-kpi-label">SOM 85 M€ · International</div></div>
+              <div class="dp-kpi"><div class="dp-kpi-val">60 %</div><div class="dp-kpi-label">Taux complétion module cible</div></div>
+            </div>
+          </div>
+          <div class="dp-section">
+            <h4>Besoins en financement — Phase 1</h4>
+            <p>Le plan financier détaille les besoins phase par phase. La phase pilote (3 territoires, 12 mois) couvre le développement MVP, l'acquisition des premiers modules co-auteurs, les coûts d'infrastructure et les opérations terrain. Les documents complets incluent le détail des charges, le compte de résultat prévisionnel et les projections de flux de trésorerie.</p>
+          </div>
+          <div class="dp-dl-bar">
+            <div><strong>Plan financier 2026–2036 v2</strong><p>Projections complètes · 3 scénaris · Tableaux Excel et PDF</p></div>
+            <a href="assets/Plan_financier_Compagnon_Dunois_2026_2036_v2.pdf" target="_blank" class="btn-dl">Télécharger PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="it-strategie" class="tab-content">
+      <div class="doc-page">
+        <div class="doc-page-header">
+          <h3>Stratégie de développement</h3>
+          <p>Roadmap · Partenariats · Scalabilité · RNCP/RS</p>
+        </div>
+        <div class="doc-page-body">
+          <div class="dp-section">
+            <h4>Roadmap en 3 phases</h4>
+            <ul class="dp-list">
+              <li><strong>Phase 1 (2026) — 3 territoires pilotes</strong> · Validation du modèle · 3 modules pilotes · Premiers co-auteurs · MVP site + app</li>
+              <li><strong>Phase 2 (2027) — Déploiement national</strong> · Ouverture France entière · Partenariats OPCO et conseils départementaux · Demande RS (Répertoire Spécifique)</li>
+              <li><strong>Phase 3 (2028–2030) — International</strong> · Europe francophone (Belgique, Suisse, Canada) · Afrique francophone · Adaptation modèle local</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Stratégie de certification</h4>
+            <p>Le modèle de certification évolue en 3 niveaux :</p>
+            <ul class="dp-list">
+              <li><strong>Diplômes privés (phase 1)</strong> — Reconnus par la plateforme et ses partenaires terrain</li>
+              <li><strong>RS (Répertoire Spécifique)</strong> — Demande France Compétences dès la phase 2 · Financement CPF potentiel</li>
+              <li><strong>RNCP (phase 3)</strong> — Objectif certification nationale · Partenariats universités et organismes agréés</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Partenariats stratégiques cibles</h4>
+            <ul class="dp-list">
+              <li>Conseils départementaux (financement formation aidants)</li>
+              <li>OPCO Santé et OPCO EP (financement CPF et plan de formation)</li>
+              <li>SAAD et SSIAD — déploiement B2B direct</li>
+              <li>Mutuelles et assureurs (Silver economy)</li>
+              <li>Fondations philanthropiques (Rothschild, Barrande, etc.)</li>
+              <li>Universités et IUT (co-validation diplômes)</li>
+            </ul>
+          </div>
+          <div class="dp-dl-bar">
+            <div><strong>Stratégie de développement v2</strong><p>Roadmap complète · Partenariats · Analyse risques</p></div>
+            <a href="assets/Strategie_Compagnon_Dunois_v2.pdf" target="_blank" class="btn-dl">Télécharger PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="it-projections" class="tab-content">
+      <div class="doc-page">
+        <div class="doc-page-header">
+          <h3>Projections régionales & nationales</h3>
+          <p>Données INSEE · ESMS · SAAD · SSIAD · Horizon 10 ans</p>
+        </div>
+        <div class="doc-page-body">
+          <div class="dp-section">
+            <h4>Méthodologie</h4>
+            <p>Les projections sont construites à partir des données officielles INSEE (vieillissement démographique par région), des statistiques ESMS (établissements et services médico-sociaux), des effectifs SAAD et SSIAD et des projections gouvernementales du Plan Autonomie 2030.</p>
+          </div>
+          <div class="dp-section">
+            <h4>Potentiel par région — Top 5</h4>
+            <div class="dp-kpis">
+              <div class="dp-kpi"><div class="dp-kpi-val">Île-de-France</div><div class="dp-kpi-label">~2,1 M aidants · Priorité</div></div>
+              <div class="dp-kpi"><div class="dp-kpi-val">AURA</div><div class="dp-kpi-label">~980 K aidants</div></div>
+              <div class="dp-kpi"><div class="dp-kpi-val">Occitanie</div><div class="dp-kpi-label">~720 K aidants</div></div>
+              <div class="dp-kpi"><div class="dp-kpi-val">PACA</div><div class="dp-kpi-label">~680 K aidants</div></div>
+            </div>
+          </div>
+          <div class="dp-section">
+            <h4>Choix des territoires pilotes</h4>
+            <p>Les 3 territoires pilotes sont sélectionnés sur des critères de diversité (rural/périurbain/urbain), de densité de professionnels du domicile, et de présence de partenaires terrain identifiés. L'objectif est de couvrir 3 profils différents pour valider le modèle sur des contextes variés avant nationalisation.</p>
+          </div>
+          <div class="dp-dl-bar">
+            <div><strong>Projections régionales complètes</strong><p>Tableaux Excel + PDF · TAM/SAM/SOM par région</p></div>
+            <a href="assets/SAM_SOM_Regional_Compagnon_Dunois_v3.pdf" target="_blank" class="btn-dl">Télécharger PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ep-contact inv">
+      <p><strong>Une question ? Souhaitez-vous un échange ?</strong><br>Thomas Bernet est disponible pour répondre et organiser une présentation personnalisée du projet.</p>
+      <a href="mailto:bernet.thomas@gmail.com?subject=Le Compagnon Dunois — Contact Investisseur" class="btn-cg">Contacter Thomas Bernet</a>
+    </div>
+  </div>
+</div>
+
+<!-- ESPACE COLLABORATEURS -->
+<div class="ep" id="espace-collab">
+  <div class="ep-hdr">
+    <div class="ep-logo">Le Compagnon Dunois</div>
+    <div class="ep-badge c">Espace Collaborateurs</div>
+    <button class="btn-lo" onclick="lo('collab')">Déconnexion</button>
+  </div>
+  <div class="ep-body">
+    <h2 class="ep-title">Espace Collaborateurs</h2>
+    <p class="ep-sub">Bienvenue, partenaire. Explorez chaque section pour comprendre comment contribuer au projet.</p>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('collab','guide',this)">Guide d'intégration</button>
+      <button class="tab" onclick="switchTab('collab','modules',this)">Modules & Catalogue</button>
+      <button class="tab" onclick="switchTab('collab','contrat',this)">Contrat co-auteur</button>
+      <button class="tab" onclick="switchTab('collab','reconnaissance',this)">Reconnaissance</button>
+      <button class="tab" onclick="switchTab('collab','proposer',this)">Proposer un module</button>
+    </div>
+
+    <div id="ct-guide" class="tab-content active">
+      <div class="doc-page">
+        <div class="doc-page-header green">
+          <h3>Guide d'intégration collaborateurs</h3>
+          <p>Tout ce qu'il faut savoir pour rejoindre et contribuer au Compagnon Dunois</p>
+        </div>
+        <div class="doc-page-body">
+          <div class="dp-section">
+            <h4>Qui peut devenir collaborateur ?</h4>
+            <p>Le Compagnon Dunois s'appuie sur l'expertise terrain des professionnels du domicile. Peuvent devenir collaborateurs :</p>
+            <ul class="dp-list">
+              <li>Soignants et auxiliaires de vie avec expérience terrain</li>
+              <li>Formateurs et professionnels de l'enseignement médico-social</li>
+              <li>Directeurs et coordinateurs d'établissements (EHPAD, SAAD, SSIAD)</li>
+              <li>Associations du champ médico-social et de l'accompagnement</li>
+              <li>Chercheurs et universitaires spécialistes du domicile et du vieillissement</li>
+              <li>Professionnels de santé souhaitant transmettre leur expertise</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Comment rejoindre la plateforme ?</h4>
+            <ul class="dp-list">
+              <li><strong>Étape 1</strong> — Remplir le formulaire de candidature (onglet "Proposer un module")</li>
+              <li><strong>Étape 2</strong> — Échange avec Thomas Bernet pour valider la pertinence et les modalités</li>
+              <li><strong>Étape 3</strong> — Signature du contrat co-auteur (modèle disponible dans l'onglet dédié)</li>
+              <li><strong>Étape 4</strong> — Production du module selon le guide de création fourni</li>
+              <li><strong>Étape 5</strong> — Validation qualité par le comité éditorial</li>
+              <li><strong>Étape 6</strong> — Mise en ligne et rémunération dès la première vente</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Ce que nous apportons</h4>
+            <ul class="dp-list">
+              <li>Infrastructure technique complète — vous n'avez qu'à créer le contenu</li>
+              <li>Visibilité auprès de milliers de professionnels du domicile</li>
+              <li>Rémunération récurrente — 30 % des ventes générées par votre module</li>
+              <li>Badge "Co-auteur Le Compagnon Dunois" — valorisation de votre expertise</li>
+              <li>Accompagnement éditorial et pédagogique</li>
+              <li>Accès à la communauté de professionnels via le chat intégré</li>
+            </ul>
+          </div>
+          <div class="dp-dl-bar">
+            <div><strong>Guide d'intégration soignants</strong><p>Document complet · PDF · 18 pages</p></div>
+            <a href="assets/Guide_Soignants_Compagnon_Dunois.pdf" target="_blank" class="btn-dl" style="background:var(--forest)">Télécharger PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ct-modules" class="tab-content">
+      <div class="doc-page">
+        <div class="doc-page-header green">
+          <h3>Modules & Catalogue</h3>
+          <p>Micro-modules certifiés · Co-auteurs · Certifications · Diplômes</p>
+        </div>
+        <div class="doc-page-body">
+          <div class="dp-section">
+            <h4>Format des micro-modules</h4>
+            <ul class="dp-list">
+              <li><strong>Durée</strong> — 5 à 20 minutes par module · Format court adapté aux professionnels actifs</li>
+              <li><strong>Prix</strong> — 2 à 5 € par module · Accessible sans aucune barrière économique</li>
+              <li><strong>Format</strong> — Vidéo + quiz + ressources · Accessible mobile et desktop</li>
+              <li><strong>Certification</strong> — Attestation de complétion automatique · Intégrée au badge professionnel</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Thématiques prioritaires — Modules pilotes à créer</h4>
+            <ul class="dp-list">
+              <li>Prévention des chutes à domicile — techniques et environnement</li>
+              <li>Communication avec les personnes atteintes de troubles cognitifs</li>
+              <li>Gestes et postures — protection du soignant et du bénéficiaire</li>
+              <li>Gestion du stress et prévention de l'épuisement professionnel</li>
+              <li>Alimentation et hydratation de la personne âgée à domicile</li>
+              <li>Accompagnement en fin de vie à domicile</li>
+              <li>Droits des aidants — congés, aides, dispositifs légaux</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Structure des certifications</h4>
+            <p>Plusieurs modules peuvent être regroupés en certifications thématiques (5 à 10 modules) puis en diplômes privés (20 à 40 modules). Ces diplômes évolueront vers une reconnaissance RS puis RNCP selon la roadmap de certification.</p>
+            <div class="dp-kpis">
+              <div class="dp-kpi"><div class="dp-kpi-val">1 module</div><div class="dp-kpi-label">2–5 € · Attestation</div></div>
+              <div class="dp-kpi"><div class="dp-kpi-val">Certification</div><div class="dp-kpi-label">49–99 € · 5–10 modules</div></div>
+              <div class="dp-kpi"><div class="dp-kpi-val">Diplôme privé</div><div class="dp-kpi-label">149–299 € · 20–40 modules</div></div>
+            </div>
+          </div>
+          <div class="dp-dl-bar">
+            <div><strong>Catalogue complet des modules</strong><p>Thèmes · Niveaux · Opportunités co-auteur</p></div>
+            <a href="assets/Catalogue_modules.pdf" target="_blank" class="btn-dl" style="background:var(--forest)">Télécharger PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ct-contrat" class="tab-content">
+      <div class="doc-page">
+        <div class="doc-page-header green">
+          <h3>Contrat co-auteur</h3>
+          <p>Rémunération · Propriété intellectuelle · Modalités de collaboration</p>
+        </div>
+        <div class="doc-page-body">
+          <div class="dp-section">
+            <h4>Principes du modèle co-auteur</h4>
+            <p>Le Compagnon Dunois est construit sur un modèle de co-création avec les professionnels terrain. Vous apportez l'expertise, nous apportons l'infrastructure, la distribution et la technologie.</p>
+          </div>
+          <div class="dp-section">
+            <h4>Rémunération</h4>
+            <ul class="dp-list">
+              <li><strong>30 % des ventes nettes</strong> générées par votre module — versement mensuel</li>
+              <li>Pas d'avance ni de minimum garanti en phase pilote</li>
+              <li>Révision possible à la hausse selon le volume généré</li>
+              <li>Modules en catalogue = revenus récurrents sans effort supplémentaire</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Propriété intellectuelle</h4>
+            <ul class="dp-list">
+              <li>Vous conservez la paternité intellectuelle de votre contenu</li>
+              <li>Licence d'exploitation exclusive accordée à la plateforme</li>
+              <li>Durée : 3 ans renouvelables · Résiliation possible avec préavis 3 mois</li>
+              <li>En cas de fin de contrat : retrait du module sous 30 jours</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Obligations de la plateforme</h4>
+            <ul class="dp-list">
+              <li>Production technique du module (montage, hébergement, quiz)</li>
+              <li>Diffusion auprès de l'ensemble des utilisateurs</li>
+              <li>Reporting mensuel des ventes</li>
+              <li>Badge co-auteur et mise en valeur de votre profil professionnel</li>
+            </ul>
+          </div>
+          <div class="dp-dl-bar">
+            <div><strong>Modèle de contrat co-auteur</strong><p>Document juridique · À retourner signé</p></div>
+            <a href="assets/Modele_contrat_coauteur.pdf" target="_blank" class="btn-dl" style="background:var(--forest)">Télécharger le modèle</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ct-reconnaissance" class="tab-content">
+      <div class="doc-page">
+        <div class="doc-page-header green">
+          <h3>Système de reconnaissance</h3>
+          <p>Badges · Labels · Macaron véhicule · Valorisation professionnelle</p>
+        </div>
+        <div class="doc-page-body">
+          <div class="dp-section">
+            <h4>Pourquoi la reconnaissance ?</h4>
+            <p>En tant que co-auteur, votre expertise mérite d'être visible. Le Compagnon Dunois valorise la contribution de ses collaborateurs par des signes distinctifs professionnels — distincts des goodies et récompenses destinés aux apprenants de la plateforme.</p>
+          </div>
+          <div class="dp-section">
+            <h4>La reconnaissance des co-auteurs</h4>
+            <ul class="dp-list">
+              <li><strong>Badge co-auteur</strong> — Attribué à la mise en ligne de votre premier module · Partageable sur LinkedIn, email, réseaux professionnels</li>
+              <li><strong>Macaron véhicule</strong> — "Co-auteur Le Compagnon Dunois" · Signal de crédibilité visible sur le terrain</li>
+              <li><strong>Mise en valeur du profil</strong> — Votre nom, spécialité et biographie affichés sur chaque module que vous avez créé</li>
+              <li><strong>Couverture de profil</strong> — Format LinkedIn personnalisé avec votre statut de co-auteur</li>
+            </ul>
+          </div>
+          <div class="dp-dl-bar">
+            <div><strong>Guide du système de reconnaissance</strong><p>Description complète · Visuels · Processus d'attribution</p></div>
+            <a href="assets/Systeme_reconnaissance.pdf" target="_blank" class="btn-dl" style="background:var(--forest)">Télécharger PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ct-proposer" class="tab-content">
+      <div class="doc-page">
+        <div class="doc-page-header green">
+          <h3>Proposer un module</h3>
+          <p>Vous avez une expertise à partager ? Soumettez votre proposition.</p>
+        </div>
+        <div class="doc-page-body">
+          <div class="dp-section">
+            <h4>Ce que nous recherchons</h4>
+            <p>Nous cherchons des professionnels du domicile, de la santé ou de la formation qui ont une expertise pratique et concrète à transmettre. Pas besoin d'être un expert de la vidéo ou de la pédagogie numérique — nous nous chargeons de tout le côté technique.</p>
+            <ul class="dp-list">
+              <li>Expertise terrain vérifiable (expérience professionnelle, diplômes)</li>
+              <li>Sujet en lien avec l'accompagnement à domicile, le soin, la formation ou la famille</li>
+              <li>Disponibilité pour 2 à 4 heures de travail (rédaction du script + tournage)</li>
+              <li>Envie de partager et d'être reconnu pour votre savoir-faire</li>
+            </ul>
+          </div>
+          <div class="dp-section">
+            <h4>Formulaire de proposition</h4>
+            <p>Remplissez le formulaire ci-dessous pour soumettre votre proposition. Thomas Bernet vous répondra sous 5 jours ouvrés pour un premier échange.</p>
+          </div>
+          <form onsubmit="event.preventDefault();this.innerHTML='<p style=\'color:var(--forest);font-family:Cormorant Garamond,serif;font-size:1.3rem\'>✓ Proposition reçue — réponse sous 5 jours ouvrés.</p>'">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+              <div class="fg"><label>Prénom & Nom</label><input type="text" required placeholder="Votre nom complet"></div>
+              <div class="fg"><label>Email</label><input type="email" required placeholder="votre@email.com"></div>
+            </div>
+            <div class="fg"><label>Votre profession</label><input type="text" required placeholder="Ex : Auxiliaire de vie, Infirmier, Formateur…"></div>
+            <div class="fg"><label>Titre de votre module proposé</label><input type="text" required placeholder="Ex : Prévention des chutes à domicile — techniques et environnement"></div>
+            <div class="fg"><label>Description (objectifs, contenu, public cible)</label><textarea style="width:100%;padding:.9rem;border:1.5px solid #ddd;border-radius:1px;font-family:Jost,sans-serif;font-size:.93rem;background:var(--cream);outline:none;resize:vertical;min-height:120px" required placeholder="Décrivez votre module en quelques lignes…"></textarea></div>
+            <button type="submit" class="btn-dl" style="background:var(--forest);width:100%;padding:1rem;cursor:pointer;font-size:.9rem">Envoyer ma proposition</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="ep-contact col">
+      <p><strong>Prêt à contribuer ?</strong><br>Thomas Bernet est disponible pour un premier échange et pour définir ensemble les modalités de votre collaboration.</p>
+      <a href="mailto:bernet.thomas@gmail.com?subject=Le Compagnon Dunois — Collaboration" class="btn-cg green">Démarrer la collaboration</a>
+    </div>
+  </div>
+</div>
+
+<script>
+async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+const PW={invest:'dunois2026invest',collab:'dunois2026collab'};
+let H={};(async()=>{H.invest=await sha256(PW.invest);H.collab=await sha256(PW.collab);})();
+
+function oM(t){event&&event.preventDefault();document.getElementById('modal-'+t).classList.add('active');setTimeout(()=>document.getElementById('p'+t[0]).focus(),100);}
+function cM(t){document.getElementById('modal-'+t).classList.remove('active');document.getElementById('p'+t[0]).value='';document.getElementById('e'+t[0]).style.display='none';}
+async function chk(t){
+  const v=document.getElementById('p'+t[0]).value;
+  const h=await sha256(v);
+  if(h===H[t]){cM(t);const el=document.getElementById('espace-'+t);el.style.display='block';el.scrollTop=0;document.body.style.overflow='hidden';}
+  else{document.getElementById('e'+t[0]).style.display='block';document.getElementById('p'+t[0]).select();}
+}
+function lo(t){document.getElementById('espace-'+t).style.display='none';document.body.style.overflow='';}
+
+function switchTab(space,name,el){
+  const prefix=space==='invest'?'it':'ct';
+  document.querySelectorAll('#espace-'+space+' .tab-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('#espace-'+space+' .tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(prefix+'-'+name).classList.add('active');
+  el.classList.add('active');
+}
+
+window.addEventListener('scroll',()=>{document.getElementById('mn').classList.toggle('scrolled',scrollY>60);});
+document.getElementById('hbg').addEventListener('click',()=>{
+  const l=document.querySelector('.nav-links');
+  l.style.display=l.style.display==='flex'?'none':'';
+  if(l.style.display==='flex')l.style.cssText='display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(13,31,60,.97);padding:1.5rem 2.5rem;gap:1.5rem;z-index:99;backdrop-filter:blur(12px)';
+});
+
+// CANVAS
+const cv=document.getElementById('hc'),cx=cv.getContext('2d');
+let W,H2,pts=[];
+function rsz(){W=cv.width=innerWidth;H2=cv.height=innerHeight;}rsz();addEventListener('resize',rsz);
+class P{constructor(){this.r();}r(){this.x=Math.random()*W;this.y=Math.random()*H2;this.s=Math.random()*1.4+.3;this.vx=(Math.random()-.5)*.28;this.vy=(Math.random()-.5)*.28;this.l=0;this.ml=Math.random()*200+80;this.g=Math.random()>.65;}u(){this.x+=this.vx;this.y+=this.vy;this.l++;if(this.l>this.ml||this.x<0||this.x>W||this.y<0||this.y>H2)this.r();}d(){const a=Math.sin(this.l/this.ml*Math.PI)*.55;cx.beginPath();cx.arc(this.x,this.y,this.s,0,Math.PI*2);cx.fillStyle=this.g?`rgba(201,169,110,${a})`:`rgba(255,255,255,${a*.35})`;cx.fill();}}
+for(let i=0;i<130;i++){const p=new P();p.l=Math.floor(Math.random()*p.ml);pts.push(p);}
+(function fr(){cx.clearRect(0,0,W,H2);pts.forEach(p=>{p.u();p.d();});requestAnimationFrame(fr);})();
+
+// GSAP
+gsap.registerPlugin(ScrollTrigger);
+gsap.to('.hero-eyebrow',{opacity:1,y:0,duration:1,delay:.3,ease:'power2.out'});
+gsap.to('.hero-title',{opacity:1,y:0,duration:1.2,delay:.6,ease:'power3.out'});
+gsap.to('.hero-subtitle',{opacity:1,y:0,duration:1,delay:.9,ease:'power2.out'});
+gsap.to('.hero-phases',{opacity:1,duration:1,delay:1.1,ease:'power2.out'});
+gsap.to('.hero-btns',{opacity:1,y:0,duration:1,delay:1.25,ease:'power2.out'});
+gsap.utils.toArray('.reveal').forEach(el=>{gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power2.out',scrollTrigger:{trigger:el,start:'top 85%',toggleActions:'play none none none'}});});
+
+// FORM
+document.getElementById('cf').addEventListener('submit',function(e){e.preventDefault();this.style.display='none';document.getElementById('fok').style.display='block';});
+
+// MODAL CLOSE
+document.querySelectorAll('.mo').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)cM(m.id.replace('modal-',''));});});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.mo.active').forEach(m=>cM(m.id.replace('modal-','')));});
+</script>
+</body>
+</html>
