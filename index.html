@@ -1234,27 +1234,27 @@ function fr(){
 new IntersectionObserver(([e])=>{if(e.isIntersecting){if(!animId)fr();}else{cancelAnimationFrame(animId);animId=0;}},{threshold:0}).observe(cv);
 fr();
 
+// Safety net: reveal everything if GSAP fails to load
+window.addEventListener('load',()=>{
+  if(typeof gsap==='undefined')
+    document.querySelectorAll('.reveal,.hero-eyebrow,.hero-title,.hero-subtitle,.hero-phases,.hero-btns').forEach(el=>{el.style.opacity='1';el.style.transform='none';});
+});
+
 gsap.registerPlugin(ScrollTrigger);
 
-// Hero entrance
 gsap.to('.hero-eyebrow',{opacity:1,y:0,duration:1,delay:.3,ease:'expo.out'});
 gsap.to('.hero-title',{opacity:1,y:0,duration:1.4,delay:.55,ease:'expo.out'});
 gsap.to('.hero-subtitle',{opacity:1,y:0,duration:1.1,delay:.85,ease:'power3.out'});
 gsap.to('.hero-phases',{opacity:1,duration:1,delay:1.05,ease:'power2.out'});
 gsap.to('.hero-btns',{opacity:1,y:0,duration:1,delay:1.2,ease:'power2.out'});
 
-// Staggered card grids
-['.piliers-grid .pc','.pq-grid .pq-card'].forEach(sel=>{
-  document.querySelectorAll(sel).forEach(el=>el.dataset.batched='1');
-  ScrollTrigger.batch(sel,{onEnter:els=>gsap.to(els,{opacity:1,y:0,stagger:.13,duration:.9,ease:'power3.out'}),start:'top 88%',once:true});
+gsap.utils.toArray('.reveal').filter(el=>!el.closest('.ep')).forEach(el=>{
+  const p=el.parentElement;
+  const isGrid=p.classList.contains('piliers-grid')||p.classList.contains('pq-grid');
+  const delay=isGrid?Array.from(p.children).indexOf(el)*.12:0;
+  gsap.to(el,{opacity:1,y:0,duration:.9,delay,ease:'power3.out',scrollTrigger:{trigger:isGrid?p:el,start:'top 85%',once:true}});
 });
 
-// Scroll reveals
-gsap.utils.toArray('.reveal').filter(el=>!el.closest('.ep')&&!el.dataset.batched).forEach(el=>{
-  gsap.to(el,{opacity:1,y:0,duration:.9,ease:'power2.out',scrollTrigger:{trigger:el,start:'top 85%',once:true}});
-});
-
-// Counter animation
 [{id:'n1',end:12,suf:'Md€'},{id:'n2',end:11,suf:'M'},{id:'n3',end:40,pre:'+',suf:'%'}].forEach(({id,end,suf,pre=''})=>{
   const el=document.getElementById(id);
   if(!el)return;
@@ -1265,7 +1265,6 @@ gsap.utils.toArray('.reveal').filter(el=>!el.closest('.ep')&&!el.dataset.batched
   });
 });
 
-// Mouse parallax on hero
 const heroEl=document.getElementById('hero');
 heroEl.addEventListener('mousemove',e=>{
   const r=heroEl.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
